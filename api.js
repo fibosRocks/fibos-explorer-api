@@ -4,7 +4,7 @@ const sqlite = require('sqlite');
 const sqlite3 = require('sqlite3')
 
 const serverPort = 8090
-const { dbPath } = require('../config/explorer.json')
+const { dbPath } = require('./config/explorer.json')
 
 const swaggerSpec = swaggerJSDoc({
     definition: {
