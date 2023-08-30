@@ -1,10 +1,10 @@
 const swaggerJSDoc = require('swagger-jsdoc');
 const bodyparser = require('body-parser');
 const sqlite = require('sqlite');
-const path = require('path')
+const sqlite3 = require('sqlite3')
 
 const serverPort = 8090
-const dbPath = path.resolve('db/tracker.db')
+const { dbPath } = require('../config/explorer.json')
 
 const swaggerSpec = swaggerJSDoc({
     definition: {
@@ -40,11 +40,13 @@ app.get('/api-docs.json', (req, res) => {
 });
 
 // db
-sqlite.open(dbPath).then(db => {
-    // history
+sqlite.open({
+    filename: dbPath,
+    driver: sqlite3.Database
+}).then(db => {    // history
     require('./api/v2.history.js')(app, db);
     // explorer
-    const memory = require('./explorer/memory')
+    const memory = require('./explorer/memory.js')
     require('./api/explorer.js')(app, memory, db);
 })
 
