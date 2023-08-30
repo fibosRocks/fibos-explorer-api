@@ -1,6 +1,5 @@
 const SQL = require('sql-template-strings');
 const axios = require('axios');
-const trackerHttpPort = require('../config/tracker.json').http_port;
 const { httpEndPoints } = require('../config/explorer.json')
 
 module.exports = (memory, db) => {
